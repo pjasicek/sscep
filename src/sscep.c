@@ -580,7 +580,6 @@ main(int argc, char **argv) {
 		#else
 		host_name = strdup(p_char);
 		#endif
-		dir_name = url_char;
 	}
 	#ifdef WIN32
 	else if (!(host_name = _strdup(url_char + 7)))
@@ -623,6 +622,12 @@ main(int argc, char **argv) {
 		}
 		p++;
 	}
+
+ 	/* When using proxy, retain the original SCEP url endpoint as dir name */                                                                                                                                                                                                                                                                                              
+	if (p_flag) {                                                                                                                                                                                                                                                                                                                                                          
+		dir_name = url_char;                                                                                                                                                                                                                                                                                                                                           
+	}
+
 	if (!dir_name) {
 		fprintf(stderr, "%s: illegal URL %s\n", pname, url_char);
 		exit (SCEP_PKISTATUS_ERROR);
